@@ -8,10 +8,12 @@ const bcrypt=require('bcrypt');
 //CREATE POST
 router.post('/',async(req,res)=>{
     const newPost=new Post(req.body);
+    // console.log(newPost);
     try{
 const savedPost=await newPost.save();
 res.status(200).json(savedPost);
     }catch(err){
+        console.log(err)
         res.status(500).json(err);
     }
 })
@@ -22,7 +24,6 @@ router.put("/:id", async(req, res)=>{
          const post=await Post.findById(req.params.id);
          if(post.username===req.body.username){
             try{
-         
                 const updatedPost=await  Post.findByIdAndUpdate(req.params.id,{
                     $set : req.body,
                 },{new:true})   
@@ -42,8 +43,7 @@ router.put("/:id", async(req, res)=>{
 router.delete("/:id", async(req, res)=>{  
     try{
         const post=await Post.findById(req.params.id);
-        console.log(post);
-        console.log(req);
+    
         if(post.username===req.body.username){
            try{  
             const postTitle = req.body.title// Delete http requests usually use a query and not a body 
@@ -77,7 +77,7 @@ router.get("/:id",async(req,res)=>{
     try{
     
 const post=await Post.findById(req.params.id);
-res.status(200).json(post)
+res.status(200).json(post);
     }catch(err){
         res.status(500).json(err);
     }
@@ -87,6 +87,29 @@ res.status(200).json(post)
 router.get("/",async(req,res)=>{  
     const username=req.query.user;
     const catName=req.query.cat;
+    /*
+    req.query takes parameters in the URL (mainly GET method) example for this URL ► http://localhost/books?author=Asimov app.get('/books/', (req, res) => { console.log(req.query.author) } will return Asimov
+    app.get('/hi/:param1', function(req,res){} );
+// regex version
+app.get(/^\/hi\/(.*)$/, function(req,res){} );
+// unnamed wild card
+app.get('/hi/*', function(req,res){} );
+and given this URL http://www.google.com/hi/there?qs1=you&qs2=tube
+
+You will have:
+
+req.query
+
+{
+  qs1: 'you',
+  qs2: 'tube'
+}
+req.params
+
+{
+  param1: 'there'
+}
+     */
     try{
          let posts;
          if(username){

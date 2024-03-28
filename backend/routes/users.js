@@ -29,10 +29,13 @@ router.put("/:id", async(req, res)=>{
      }
 } )
 //DELETE
-router.delete("/:id", async(req, res)=>{  
-    if(req.body.userId === req.params.id){
-        console.log(req.body.userId+" "+req.params.id)
-  try{   
+router.delete("/:id", async(req, res)=>{   
+   // console.log(req.body)
+
+   console.log(req.body.userId+" "+req.params.id)
+   if(req.body.userId === req.params.id){
+      try{   
+     console.log("Hey2")
 
     //   const user = await User.findById(req.params.id);  
       const user = await User.findOne({_id:req.body.userId});
