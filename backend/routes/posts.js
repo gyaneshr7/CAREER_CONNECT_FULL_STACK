@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-//get categories
+//get companies
 router.get("/titles", async (req, res) => {
   try {
     const posts = await Post.find({}, "title"); // Fetch only the 'title' field of all posts
@@ -57,7 +57,7 @@ router.put("/:id", async (req, res) => {
 
 router.get("/get/:title", async (req, res) => {
   const username=req.query.user;
-  const catName=req.query.cat;
+  // const catName=req.query.cat;
   
   /*
     req.query takes parameters in the URL (mainly GET method) example for this URL ► http://localhost/books?author=Asimov app.get('/books/', (req, res) => { console.log(req.query.author) } will return Asimov
@@ -87,12 +87,6 @@ req.params
     if (req.params.title === "All") {
       if (username) {
         posts = await Post.find({ username });
-      } else if (catName) {
-        posts = await Post.find({
-          categories: {
-            $in: [catName],
-          },
-        });
       } else {
         posts = await Post.find();
       }

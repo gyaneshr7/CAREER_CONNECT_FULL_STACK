@@ -6,6 +6,7 @@ const authRoute=require("./routes/auth")
 const userRoute=require("./routes/users")
 const postRoute=require("./routes/posts")
 const categoryRoute=require("./routes/categories");
+const resourceRoute=require('./routes/resource');
 const multer= require('multer');
 const cors=require("cors")
 const path=require("path");
@@ -57,6 +58,7 @@ app.use("/api/auth",authRoute);
 app.use("/api/user",userRoute);
 app.use("/api/post",postRoute);
 app.use("/api/categories",categoryRoute);
+app.use("/api/resource",resourceRoute);
 
 app.listen(7000,(req,res)=>{
     console.log(`Server is listeining is port ${port}`);
