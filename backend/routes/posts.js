@@ -56,9 +56,9 @@ router.put("/:id", async (req, res) => {
 });
 
 router.get("/get/:title", async (req, res) => {
-  const username=req.query.user;
+  const username = req.query.user;
   // const catName=req.query.cat;
-  
+
   /*
     req.query takes parameters in the URL (mainly GET method) example for this URL ► http://localhost/books?author=Asimov app.get('/books/', (req, res) => { console.log(req.query.author) } will return Asimov
     app.get('/hi/:param1', function(req,res){} );
@@ -93,15 +93,8 @@ req.params
     } else {
       if (username) {
         posts = await Post.find({ username, title });
-      } else if (catName) {
-        posts = await Post.find({
-          categories: {
-            $in: [catName],
-          },
-          title
-        });
       } else {
-        posts = await Post.find({title: req.params.title});
+        posts = await Post.find({ title: req.params.title });
       }
     }
     res.status(200).json(posts);
@@ -112,13 +105,13 @@ req.params
 
 router.get("/:id", async (req, res) => {
   try {
-    console.log(req.params.id)
+    console.log(req.params.id);
     const post = await Post.findById(req.params.id);
     res.status(200).json(post);
   } catch (err) {
     res.status(500).json(err);
   }
-})
+});
 
 //DELETE
 router.delete("/:id", async (req, res) => {
@@ -152,11 +145,9 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-
-
 //getpost
-router.get('/dummy', async (req,res) => {
-  console.log('dummy endpoint');
+router.get("/dummy", async (req, res) => {
+  console.log("dummy endpoint");
 });
 //getall post
 

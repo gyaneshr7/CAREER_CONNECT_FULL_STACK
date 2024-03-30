@@ -3,19 +3,19 @@ const mongoose = require("mongoose");
 const resourceSchema = new mongoose.Schema({
   title: {
     type: String,
-  },
-  url: {
-    type: String,
+    required: true,
   },
   date: {
     type: Date,
     default: Date.now,
   },
-  type:{
-    type:String
+  type: {
+    type: String,
   },
-  driveId:{
-    type:String
+  filePath: {
+    type: String,
+    required: true,
+    unique: true,
   }
 });
 
