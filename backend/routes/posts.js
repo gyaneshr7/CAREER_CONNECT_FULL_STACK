@@ -19,11 +19,13 @@ router.post("/", async (req, res) => {
 });
 
 //get companies
-router.get("/titles", async (req, res) => {
+router.get("/companies", async (req, res) => {
   try {
-    const posts = await Post.find({}, "title"); // Fetch only the 'title' field of all posts
-    const titles = posts.map((post) => post.title); // Extract titles from the fetched posts
-    res.json(titles);
+    const posts = await Post.find({}, "company"); // Fetch only the 'company' field of all posts
+
+    const companiesSet = new Set(posts.map((post) => post.company)); // Extract and create a set of unique company names
+    const companies = Array.from(companiesSet); // Convert the set back to an array
+    res.json(companies);
   } catch (error) {
     console.log(err);
     res.status(500).json(err);
@@ -55,7 +57,8 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.get("/get/:title", async (req, res) => {
+// ENDPOINT TO FETCH ALL POSTS ON THE BASIS OF COMPANY
+router.get("/get/:company", async (req, res) => {
   const username = req.query.user;
   // const catName=req.query.cat;
 
@@ -84,7 +87,7 @@ req.params
      */
   try {
     let posts;
-    if (req.params.title === "All") {
+    if (req.params.company === "All") {
       if (username) {
         posts = await Post.find({ username });
       } else {
@@ -92,9 +95,9 @@ req.params
       }
     } else {
       if (username) {
-        posts = await Post.find({ username, title });
+        posts = await Post.find({ username, company: req.params.company });
       } else {
-        posts = await Post.find({ title: req.params.title });
+        posts = await Post.find({ company: req.params.company });
       }
     }
     res.status(200).json(posts);
@@ -103,6 +106,7 @@ req.params
   }
 });
 
+//GET POST ON THE BASIS OF ID
 router.get("/:id", async (req, res) => {
   try {
     console.log(req.params.id);
