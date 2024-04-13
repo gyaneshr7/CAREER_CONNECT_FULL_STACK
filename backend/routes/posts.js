@@ -26,9 +26,37 @@ router.get("/companies", async (req, res) => {
     const companiesSet = new Set(posts.map((post) => post.company)); // Extract and create a set of unique company names
     const companies = Array.from(companiesSet); // Convert the set back to an array
     res.json(companies);
-  } catch (error) {
+  } catch (err) {
     console.log(err);
     res.status(500).json(err);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
   }
 });
 
